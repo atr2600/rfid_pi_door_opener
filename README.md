@@ -1,20 +1,46 @@
-DEPRECATED LIBRARY. Adafruit Python PN532
-=========================================
+# PiDoorOpener
 
-This library has been deprecated! We are leaving this up for historical and research purposes but archiving the repository.
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-We are now only supporting the use of our CircuitPython libraries for use with Python.
+## How to use:
+### Run the door. 
+```
+tmux
+python reader.py
+```
+<kbd>CTRL</kbd>+<kbd>B</kbd> release then press <kbd>D</kdb> to detach the tmux session. 
+Now you can just type: 
+```
+tmux attach
+```
+to load back up the python scipt. 
 
-Please check out the Adafruit CircuitPython PN532 library: https://github.com/adafruit/Adafruit_CircuitPython_PN532
+### Added Features. 
+- sound effects (Need a speaker with aux cable connected to the Pi) 
+- logs
+- hashed keys
 
-Adafruit Python PN532
+### Write keys. 
+I decided to just create a authorized.txt file that contains the hashes of the IED numbers on the cards. 
+To add a key into your list run the command:
+```
+python writer.py
+```
+It will ask you for username. (We are using the unviersities username.)
 
-Python library for accessing a PN532 NFC breakout over a SPI connection from a Raspberry Pi, BeagleBone Black, etc.
+# Installation instructions. 
+## Parts needed. 
+- Raspberry Pi 2 (or newer)
+- Servo (heavy torque)
+- 1/16 cable (Or some sort of wire)
+- RFID reader
+    - We used this one from adafruit [PN532](https://www.adafruit.com/product/364) .
+    - Works through doors. Great range.
+###  Raspberry Pi
+Install [raspbian lite](https://www.raspberrypi.org/downloads/raspbian/). 
 
-Designed specifically to work with the Adafruit PN532 breakout using a SPI connection ----> https://www.adafruit.com/product/364
-
-Installation
-------------
+###  RFID Reader
+#### Installation
 
 To install the library make sure your device is connected to the internet (with a wired or wireless connection), then
 connect to the device's terminal and run the following commands (assuming a Debian-based operating system like
@@ -30,12 +56,9 @@ sudo python setup.py install
 
 Look inside the examples directory for a simple example of detecting and reading a MiFare classic card with readmifare.py.
 Make sure to run examples as root using sudo, for example:
-
 ```
 sudo python readmifare.py
 ```
-
-Adafruit invests time and resources providing this open source code, please support Adafruit and open-source hardware by purchasing products from Adafruit!
-
 Written by Tony DiCola for Adafruit Industries.
 MIT license, all text above must be included in any redistribution
+
