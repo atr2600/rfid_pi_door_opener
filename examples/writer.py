@@ -3,6 +3,8 @@ import binascii
 import sys
 import time
 import Adafruit_PN532 as PN532
+import hashlib
+import uuid
 
 
 # Setup how the PN532 is connected to the Raspbery Pi/BeagleBone Black.
@@ -37,6 +39,15 @@ pn532.SAM_configuration()
 #OPENING FILE
 f = open("authorized.txt", "a")
 
+def hash_key(key):
+    # uuid is used to generate a random number
+    salt = uuid.uuid4().hex
+    return hashlib.sha256(salt.encode() + key.encode()).hexdigest() + ':' + salt
+    
+def check_key(hashed_key, user_key):
+    key, salt = hashed_password.split(':')
+    return key == hashlib.sha256(salt.encode() + user_key.encode()).hexdigest()
+
 # Main loop to detect cards and read a block.
 print('Waiting for MiFare card...')
 while True:
@@ -47,8 +58,8 @@ while True:
         continue
     time.sleep(2)
     print('Found card with UID: 0x{0}'.format(binascii.hexlify(uid)))
-    print('{0}'.format(binascii.hexlify(uid)))
+    key = ('{0}'.format(binascii.hexlify(uid)))
     username = raw_input("Type in the username of this ID tag: ")
-    f.write('{0}'.format(binascii.hexlify(uid)) + "," + username + "\n")
+    #f.write('{0}'.format(binascii.hexlify(uid)) + "," + username + "\n")
+    f.write(hash_key(key) + ":" + username + "\n")
     quit()
-    
