@@ -8,7 +8,7 @@
 tmux
 python reader.py
 ```
-<kbd>CTRL</kbd>+<kbd>B</kbd> release then press <kbd>D</kdb> to detach the tmux session. 
+<kbd>CTRL</kbd>+<kbd>B</kbd> release then press <kbd>D</kbd> to detach the tmux session. 
 Now you can just type: 
 ```
 tmux attach
