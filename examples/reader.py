@@ -62,6 +62,9 @@ while True:
         continue
     if check_key('{0}'.format(binascii.hexlify(uid))):
         lars.opendoor()
+        log.write("Open door at " + time.strftime("%c") + "\n") #need to add user data on this one. 
+    else:
+        log.write("WARNING!!! Attempt to open door at " + time.strftime("%c") + " with key tag: " + '{0}'.format(binascii.hexlify(uid)) + "\n")
     time.sleep(2)
     # print('Found card with UID: 0x{0}'.format(binascii.hexlify(uid)))
     # print('{0}'.format(binascii.hexlify(uid)))
