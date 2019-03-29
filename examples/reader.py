@@ -37,7 +37,8 @@ print('Found PN532 with firmware version: {0}.{1}'.format(ver, rev))
 pn532.SAM_configuration()
 
 #OPENING FILE
-#f = open("authorized.txt", "a")
+#f = open("authorized.txt", "r")
+log = open("door.log", "a")
 
 def hash_key(key):
     # uuid is used to generate a random number
@@ -47,9 +48,8 @@ def hash_key(key):
 def check_key(user_key):
     with open("authorized.txt","r") as f:
         for line in f.readlines():
-            hashed_key, username = line.split(",")
-            key, salt = hashed_key.split(':')
-            return key == hashlib.sha256(salt.encode() + user_key.encode()).hexdigest()
+            hashed_key, salt, username = line.split(":")
+            return hashed_key == hashlib.sha256(salt.encode() + user_key.encode()).hexdigest()
 
 
 # Main loop to detect cards and read a block.
