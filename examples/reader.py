@@ -55,6 +55,7 @@ def check_key(user_key):
 
 # Main loop to detect cards and read a block.
 print('Waiting for MiFare card...')
+check = False
 while True:
     # Check if a card is available to read.
     uid = pn532.read_passive_target()
@@ -66,6 +67,7 @@ while True:
     if check:
         os.system('mpg123 audio.mp3 &')
 	lars.opendoor()
+	check = False
         log.write("Open door at " + time.strftime("%c") + "\n") #need to add user data on this one. 
     else:
         log.write("WARNING!!! Attempt to open door at " + time.strftime("%c") + " with key tag: " + '{0}'.format(binascii.hexlify(uid)) + "\n")
