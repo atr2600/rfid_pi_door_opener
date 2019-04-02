@@ -21,10 +21,3 @@ def opendoor():
         except KeyboardInterrupt:
                 p.stop()
                 GPIO.cleanup()
-
-
- 
-
-#opendoor()
-
-

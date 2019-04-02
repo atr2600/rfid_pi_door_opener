@@ -50,8 +50,9 @@ def check_key(user_key):
     with open("authorized.txt","r") as f:
         for line in f.readlines():
             hashed_key, salt, username = line.split(":")
-            return hashed_key == hashlib.sha256(salt.encode() + user_key.encode()).hexdigest()
-
+            if hashed_key == hashlib.sha256(salt.encode() + user_key.encode()).hexdigest():
+                return True
+    return False
 
 # Main loop to detect cards and read a block.
 print('Waiting for MiFare card...')
@@ -65,12 +66,13 @@ while True:
     if check_key('{0}'.format(binascii.hexlify(uid))):
         check = True
     if check:
-        os.system('mpg123 audio.mp3 &')
-	lars.opendoor()
-	check = False
+        os.system('mpg123 music/audio.mp3 &')
+        lars.opendoor()
+        check = False
         log.write("Open door at " + time.strftime("%c") + "\n") #need to add user data on this one. 
     else:
         log.write("WARNING!!! Attempt to open door at " + time.strftime("%c") + " with key tag: " + '{0}'.format(binascii.hexlify(uid)) + "\n")
+        os.system('mpg123 music/warning.mp3 &')
     time.sleep(2)
     # print('Found card with UID: 0x{0}'.format(binascii.hexlify(uid)))
     # print('{0}'.format(binascii.hexlify(uid)))
