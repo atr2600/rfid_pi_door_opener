@@ -1,4 +1,5 @@
 
+import os
 import binascii
 import sys
 import time
@@ -61,7 +62,10 @@ while True:
     if uid is None:
         continue
     if check_key('{0}'.format(binascii.hexlify(uid))):
-        lars.opendoor()
+        check = True
+    if check:
+        os.system('mpg123 audio.mp3 &')
+	lars.opendoor()
         log.write("Open door at " + time.strftime("%c") + "\n") #need to add user data on this one. 
     else:
         log.write("WARNING!!! Attempt to open door at " + time.strftime("%c") + " with key tag: " + '{0}'.format(binascii.hexlify(uid)) + "\n")
